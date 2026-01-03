@@ -11,8 +11,11 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
     "ruff>=0.14.10",
+    "taskipy>=1.14.1",
 ]
+
 
 
 [tool.ruff]
@@ -32,10 +35,26 @@ extend-exclude = [
     "manage.py",
 ]
 
+
 [tool.ruff.lint]
 preview = true
 select = ["I", "F", "E", "W", "PL", "PT"]
 
+
 [tool.ruff.format]
 preview = true
 quote-style = "single"
+
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-p no:warnings"
+
+[tool.taskipy.tasks]
+test = "pytest --cov=backend -v"
+lint = "uv run ruff check ."
+format = "uv run ruff format ."    
+run = "python ./backend/manage.py runserver"
+migrate = "python ./backend/manage.py migrate"
+makemigrations = "python ./backend/manage.py makemigrations"
+createsuperuser = "python ./backend/manage.py createsuperuser"
