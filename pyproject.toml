@@ -35,25 +35,24 @@ extend-exclude = [
     "manage.py",
 ]
 
-
 [tool.ruff.lint]
 preview = true
 select = ["I", "F", "E", "W", "PL", "PT"]
 
-
 [tool.ruff.format]
 preview = true
 quote-style = "single"
-
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 addopts = "-p no:warnings"
 
 [tool.taskipy.tasks]
-test = "pytest --cov=backend -v"
 lint = "uv run ruff check ."
 format = "uv run ruff format ."    
+pre_test = "task lint"
+test = "pytest --cov=backend -v"
+post_test = "coverage html"
 run = "python ./backend/manage.py runserver"
 migrate = "python ./backend/manage.py migrate"
 makemigrations = "python ./backend/manage.py makemigrations"
