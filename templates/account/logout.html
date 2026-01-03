@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-[60vh]">
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title text-2xl mb-4">Logout</h2>
+            
+            <p class="mb-4">Are you sure you want to logout?</p>
+            
+            <form method="post" action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                <div class="card-actions justify-end">
+                    <a href="{% url 'core:home' %}" class="btn btn-ghost">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

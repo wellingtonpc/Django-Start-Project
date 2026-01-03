@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Django Start Project{% endblock %}
+
+{% block content %}
+<div class="hero min-h-[60vh]">
+    <div class="hero-content text-center">
+        <div class="max-w-md">
+            <h1 class="text-5xl font-bold">Welcome to Django Start Project</h1>
+            <p class="py-6">
+                A template Django project pre-configured with django-allauth, pytest, Docker, DaisyUI, and HTMX.
+            </p>
+            
+            <!-- HTMX Demo Button -->
+            <button 
+                hx-get="/htmx-demo/" 
+                hx-target="#htmx-result"
+                hx-swap="innerHTML"
+                class="btn btn-primary">
+                Try HTMX Demo
+            </button>
+            
+            <div id="htmx-result" class="mt-4"></div>
+            
+            {% if not user.is_authenticated %}
+                <div class="mt-6">
+                    <a href="{% url 'account_signup' %}" class="btn btn-primary">Get Started</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🔐 Django Allauth</h2>
+            <p>Complete authentication system with social login support ready to use.</p>
+        </div>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🧪 Pytest</h2>
+            <p>Modern testing framework configured and ready for TDD development.</p>
+        </div>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🐳 Docker</h2>
+            <p>Containerized development environment with PostgreSQL database.</p>
+        </div>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🎨 DaisyUI</h2>
+            <p>Beautiful UI components built on Tailwind CSS framework.</p>
+        </div>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">⚡ HTMX</h2>
+            <p>Dynamic interactions without writing JavaScript.</p>
+        </div>
+    </div>
+    
+    <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">🚀 Ready to Deploy</h2>
+            <p>Production-ready configuration with environment variables.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
