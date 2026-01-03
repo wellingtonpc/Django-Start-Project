@@ -20,11 +20,11 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy project
 COPY . /app/
 
-# Collect static files will be done in entrypoint
-RUN python manage.py collectstatic --noinput || true
+# Create static directories
+RUN mkdir -p static staticfiles
 
 # Expose port
 EXPOSE 8000
 
 # Run migrations and start server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

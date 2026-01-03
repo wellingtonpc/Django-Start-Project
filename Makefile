@@ -27,6 +27,9 @@ run: ## Run development server
 superuser: ## Create a superuser
 	python manage.py createsuperuser
 
+dev-user: ## Create a development user (admin/admin123)
+	python manage.py create_dev_user
+
 docker-build: ## Build Docker image
 	docker-compose build
 
