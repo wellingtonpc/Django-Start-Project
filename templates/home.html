@@ -11,20 +11,13 @@
                 A template Django project pre-configured with django-allauth, pytest, Docker, DaisyUI, and HTMX.
             </p>
             
-            <!-- HTMX Demo Button -->
-            <button 
-                hx-get="/htmx-demo/" 
-                hx-target="#htmx-result"
-                hx-swap="innerHTML"
-                class="btn btn-primary">
-                Try HTMX Demo
-            </button>
-            
-            <div id="htmx-result" class="mt-4"></div>
-            
             {% if not user.is_authenticated %}
                 <div class="mt-6">
                     <a href="{% url 'account_signup' %}" class="btn btn-primary">Get Started</a>
+                </div>
+            {% else %}
+                <div class="mt-6">
+                    <p class="text-lg">Welcome back, {{ user.username }}! 👋</p>
                 </div>
             {% endif %}
         </div>
