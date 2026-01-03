@@ -25,7 +25,8 @@ django-admin startproject project
 ## rename the main folder (powershell)
 rename-item project -NewName backend
 
+## add pytest
+uv add --dev pytest
 
-
-
-
+## add ruff
+uv add --group lint ruff
