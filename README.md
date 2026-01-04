@@ -30,3 +30,7 @@ uv add --dev pytest
 
 ## add ruff
 uv add --group lint ruff
+
+
+mkdir local
+Copy-Item -Path "./backend/project/settings/templates/settings.dev.py" -Destination "./local/settings.dev.py"
