@@ -2,7 +2,7 @@ from core.utils.collections import deep_update
 from core.utils.settings import get_settings_from_environment
 
 """
-This takes any variable with a matching prefix, strips out the prefix, 
+This takes any variable with a matching prefix, strips out the prefix,
 and adds it to global
 
 Example:
@@ -16,5 +16,5 @@ IN_DOCKER = True
 
 deep_update(
     globals(),
-    get_settings_from_environment(ENVVAR_SETTINGS_PREFIX) # type: ignore
-    )
+    get_settings_from_environment(ENVVAR_SETTINGS_PREFIX),  # type: ignore # noqa: F821
+)
