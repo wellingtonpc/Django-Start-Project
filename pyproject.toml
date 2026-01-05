@@ -12,6 +12,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "colorlog>=6.10.1",
     "pre-commit>=4.5.1",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
@@ -63,3 +64,5 @@ pre_start = "uv sync"
 start = "task migrate && task createsuperuser && task run"
 newapp = "cd ./backend && python manage.py startapp"
 migrations = "python ./backend/manage.py makemigrations"
+install_precommit = "uv run pre-commit uninstall && uv run pre-commit install"
+precommit_run = "uv run pre-commit run --all-files"
