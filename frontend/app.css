@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@source "../backend/templates/**/*.{html,js}";
+@source "../backend/**/templates/**/*.{html,js}",
+@source "../backend/**/forms.py",  // Include forms.py to scan for class names
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: #FFFFFF;
+  --color-base-200: #F5F7FA;
+  --color-base-300: oklch(87% 0.006 286.286);
+  --color-base-content: oklch(20% 0 0);
+  --color-primary: #00338d;
+  --color-primary-content: oklch(100% 0 0);
+  --color-secondary: #0c233c;
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: #1e49e2;
+  --color-accent-content: oklch(100% 0 0);
+  --color-neutral: oklch(37% 0 0);
+  --color-neutral-content: oklch(98% 0 0);
+  --color-info: #0dcaf0;
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: #198754;
+  --color-success-content: oklch(96% 0.044 156.743);
+  --color-warning: #ffc107;
+  --color-warning-content: oklch(41% 0.112 45.904);
+  --color-error: #dc3545;
+  --color-error-content: oklch(97% 0.013 17.38);
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.21875rem;
+  --size-field: 0.21875rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 1;
+
+  --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+  --cor-lightblue: #aceaff;
+  --cor-pacificblue: #00b8f5;
+  --cor-mediumblue: #005eb8;
+  --cor-green: #00a3a1;
+  --cor-purple: #7213ea;
+  --cor-pink: #fd349c;
+  --cor-fonte: #333333;
+  --cor-white: #ffffff;
+  --cor-grey-bg: #f5f6fa;
+
+}
