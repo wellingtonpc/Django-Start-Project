@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Movimentação Operações Financeiras | KPMG</title>
+    <!-- DaisyUI via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom KPMG Styles based on the provided website -->
+    <style>
+        :root {
+            --kpmg-blue: #00338D;
+            --kpmg-light-blue: #0066CC;
+            --kpmg-cyan: #00B2A9;
+            --kpmg-dark: #1A1A1A;
+            --kpmg-light: #F5F7FA;
+            --kpmg-gray: #6C757D;
+        }
+
+        .kpmg-bg-blue {
+            background-color: var(--kpmg-blue);
+        }
+
+        .kpmg-bg-light-blue {
+            background-color: var(--kpmg-light-blue);
+        }
+
+        .kpmg-bg-cyan {
+            background-color: var(--kpmg-cyan);
+        }
+
+        .kpmg-text-blue {
+            color: var(--kpmg-blue);
+        }
+
+        .kpmg-text-light-blue {
+            color: var(--kpmg-light-blue);
+        }
+
+        .kpmg-text-cyan {
+            color: var(--kpmg-cyan);
+        }
+
+        .kpmg-border-blue {
+            border-color: var(--kpmg-blue);
+        }
+
+        .kpmg-border-cyan {
+            border-color: var(--kpmg-cyan);
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, var(--kpmg-blue) 0%, var(--kpmg-light-blue) 100%);
+        }
+
+        .stat-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 51, 141, 0.15);
+        }
+
+        .kpmg-shadow {
+            box-shadow: 0 4px 12px rgba(0, 51, 141, 0.08);
+        }
+
+        .progress-fill-blue {
+            background-color: var(--kpmg-blue);
+        }
+
+        .progress-fill-cyan {
+            background-color: var(--kpmg-cyan);
+        }
+
+        .progress-fill-light-blue {
+            background-color: var(--kpmg-light-blue);
+        }
+    </style>
+
+    <!-- Tailwind Configuration for DaisyUI -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kpmg-blue': '#00338D',
+                        'kpmg-light-blue': '#0066CC',
+                        'kpmg-cyan': '#00B2A9',
+                        'kpmg-dark': '#1A1A1A',
+                        'kpmg-light': '#F5F7FA',
+                        'kpmg-gray': '#6C757D',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-kpmg-light text-kpmg-dark">
+    <!-- Navigation Bar -->
+    <div class="navbar bg-base-100 kpmg-shadow sticky top-0 z-50">
+        <div class="navbar-start">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a>Dashboard</a></li>
+                    <li><a>Relatórios</a></li>
+                    <li><a>Configurações</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-ghost text-xl font-bold kpmg-text-blue">
+                <i class="fas fa-chart-line mr-2"></i>
+                KPMG Finance Dashboard
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1">
+                <li><a class="kpmg-text-blue font-semibold">Dashboard</a></li>
+                <li><a>Relatórios</a></li>
+                <li><a>Análises</a></li>
+                <li><a>Configurações</a></li>
+            </ul>
+        </div>
+        <div class="navbar-end">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full bg-kpmg-light-blue text-white flex items-center justify-center">
+                        <span class="font-bold">KF</span>
+                    </div>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a>Perfil</a></li>
+                    <li><a>Configurações</a></li>
+                    <li><a>Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header Section -->
+        <div class="mb-10">
+            <div class="gradient-header rounded-2xl p-8 text-white mb-6">
+                <h1 class="text-4xl font-bold mb-4">Movimentação Operações Financeiras</h1>
+                <p class="text-lg opacity-90">Monitoramento em tempo real dos eventos financeiros e análise de desempenho operacional</p>
+            </div>
+
+            <!-- Date Filter -->
+            <div class="flex flex-wrap justify-between items-center mb-8">
+                <div class="breadcrumbs text-sm mb-4 md:mb-0">
+                    <ul>
+                        <li><a class="kpmg-text-blue">Dashboard</a></li>
+                        <li><a class="kpmg-text-blue">Operações Financeiras</a></li>
+                        <li class="kpmg-text-gray">Movimentação</li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-wrap gap-4">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text kpmg-text-gray font-medium">Período</span>
+                        </label>
+                        <select class="select select-bordered w-full md:w-auto">
+                            <option selected>Esta Semana</option>
+                            <option>Este Mês</option>
+                            <option>Este Trimestre</option>
+                            <option>Este Ano</option>
+                        </select>
+                    </div>
+
+                    <button class="btn bg-kpmg-blue text-white hover:bg-kpmg-light-blue self-end">
+                        <i class="fas fa-download mr-2"></i>
+                        Exportar Dados
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            <!-- Eventos Gerados -->
+            <div class="stat-card card bg-base-100 kpmg-shadow border-t-4 border-t-kpmg-blue">
+                <div class="card-body">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="card-title text-kpmg-gray text-sm font-semibold uppercase">Eventos Gerados</h3>
+                            <p class="text-3xl font-bold mt-2 kpmg-text-blue">10.000</p>
+                        </div>
+                        <div class="rounded-full bg-blue-50 p-3">
+                            <i class="fas fa-file-invoice text-xl kpmg-text-blue"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="kpmg-text-gray">Taxa de Conclusão</span>
+                            <span class="font-semibold kpmg-text-blue">100%</span>
+                        </div>
+                        <progress class="progress progress-info w-full" value="100" max="100"></progress>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eventos Assinados -->
+            <div class="stat-card card bg-base-100 kpmg-shadow border-t-4 border-t-kpmg-cyan">
+                <div class="card-body">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="card-title text-kpmg-gray text-sm font-semibold uppercase">Eventos Assinados</h3>
+                            <p class="text-3xl font-bold mt-2 kpmg-text-cyan">8.000</p>
+                        </div>
+                        <div class="rounded-full bg-cyan-50 p-3">
+                            <i class="fas fa-signature text-xl kpmg-text-cyan"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="kpmg-text-gray">Taxa de Conclusão</span>
+                            <span class="font-semibold kpmg-text-cyan">80%</span>
+                        </div>
+                        <progress class="progress progress-success w-full" value="80" max="100"></progress>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eventos Enviados -->
+            <div class="stat-card card bg-base-100 kpmg-shadow border-t-4 border-t-kpmg-light-blue">
+                <div class="card-body">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="card-title text-kpmg-gray text-sm font-semibold uppercase">Eventos Enviados</h3>
+                            <p class="text-3xl font-bold mt-2 kpmg-text-light-blue">3.000</p>
+                        </div>
+                        <div class="rounded-full bg-blue-50 p-3">
+                            <i class="fas fa-paper-plane text-xl kpmg-text-light-blue"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="kpmg-text-gray">Taxa de Conclusão</span>
+                            <span class="font-semibold kpmg-text-light-blue">30%</span>
+                        </div>
+                        <progress class="progress progress-primary w-full" value="30" max="100"></progress>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eventos com Sucesso -->
+            <div class="stat-card card bg-base-100 kpmg-shadow border-t-4 border-t-green-500">
+                <div class="card-body">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="card-title text-kpmg-gray text-sm font-semibold uppercase">Eventos com Sucesso</h3>
+                            <p class="text-3xl font-bold mt-2 text-green-600">2.500</p>
+                        </div>
+                        <div class="rounded-full bg-green-50 p-3">
+                            <i class="fas fa-check-circle text-xl text-green-600"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="kpmg-text-gray">Taxa de Sucesso</span>
+                            <span class="font-semibold text-green-600">83.3%</span>
+                        </div>
+                        <progress class="progress progress-success w-full" value="83.3" max="100"></progress>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts and Data Tables Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+            <!-- Flow Chart -->
+            <div class="card bg-base-100 kpmg-shadow">
+                <div class="card-body">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="card-title text-xl font-bold kpmg-text-blue">Fluxo de Operações Financeiras</h2>
+                        <button class="btn btn-sm btn-ghost kpmg-text-blue">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="h-80">
+                        <canvas id="flowChart"></canvas>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-sm kpmg-text-gray mb-4">Progressão dos eventos desde a geração até a conclusão com sucesso</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="badge badge-outline kpmg-border-blue kpmg-text-blue gap-2">
+                                <div class="w-3 h-3 rounded-full bg-kpmg-blue"></div>
+                                Eventos Gerados
+                            </div>
+                            <div class="badge badge-outline kpmg-border-cyan kpmg-text-cyan gap-2">
+                                <div class="w-3 h-3 rounded-full bg-kpmg-cyan"></div>
+                                Eventos Assinados
+                            </div>
+                            <div class="badge badge-outline border-kpmg-light-blue text-kpmg-light-blue gap-2">
+                                <div class="w-3 h-3 rounded-full bg-kpmg-light-blue"></div>
+                                Eventos Enviados
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Table -->
+            <div class="card bg-base-100 kpmg-shadow">
+                <div class="card-body">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="card-title text-xl font-bold kpmg-text-blue">Resumo do Status das Operações</h2>
+                        <button class="btn btn-sm bg-kpmg-blue text-white hover:bg-kpmg-light-blue">
+                            <i class="fas fa-sync-alt mr-2"></i>
+                            Atualizar
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="table">
+                            <thead>
+                                <tr class="bg-kpmg-light">
+                                    <th class="kpmg-text-blue font-semibold">Status</th>
+                                    <th class="kpmg-text-blue font-semibold">Quantidade</th>
+                                    <th class="kpmg-text-blue font-semibold">Porcentagem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-kpmg-blue"></div>
+                                            <span>Eventos Gerados</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">10.000</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-success">100%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-kpmg-cyan"></div>
+                                            <span>Eventos Assinados</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">8.000</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-success">80%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-kpmg-light-blue"></div>
+                                            <span>Eventos Enviados</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">3.000</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-warning">30%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                            <span>Eventos com Sucesso</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">2.500</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-success">83.3%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                                            <span>Eventos a Assinar</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">2.000</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-warning">20%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-orange-500"></div>
+                                            <span>Eventos a Enviar</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">5.000</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-warning">50%</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                            <span>Eventos com Erro</span>
+                                        </div>
+                                    </td>
+                                    <td class="font-semibold">500</td>
+                                    <td>
+                                        <span class="badge badge-outline badge-error">5%</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fechamento eFinanceira Section -->
+        <div class="mb-10">
+            <div class="gradient-header rounded-2xl p-6 text-white mb-6">
+                <h2 class="text-2xl font-bold">Fechamento eFinanceira</h2>
+                <p class="opacity-90">Métricas de desempenho para o fechamento financeiro eletrônico</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- eFinanceira Chart -->
+                <div class="card bg-base-100 kpmg-shadow">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg font-bold kpmg-text-blue mb-4">Status do Fechamento eFinanceira</h3>
+                        <div class="h-64">
+                            <canvas id="efinanceiraChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distribution Chart -->
+                <div class="card bg-base-100 kpmg-shadow">
+                    <div class="card-body">
+                        <h3 class="card-title text-lg font-bold kpmg-text-blue mb-4">Distribuição: Sucesso vs Erro</h3>
+                        <div class="h-64">
+                            <canvas id="distributionChart"></canvas>
+                        </div>
+                        <div class="mt-6 flex flex-wrap gap-4 justify-center">
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full bg-green-500"></div>
+                                <span class="text-sm">Sucesso (2.500)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full bg-red-500"></div>
+                                <span class="text-sm">Erro (500)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="w-4 h-4 rounded-full bg-amber-500"></div>
+                                <span class="text-sm">Pendentes (5.000)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Action Section -->
+        <div class="card bg-base-100 kpmg-shadow">
+            <div class="card-body">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div>
+                        <p class="text-sm kpmg-text-gray">
+                            <i class="fas fa-clock mr-2"></i>
+                            Última atualização: Hoje às 14:30 GMT | Os dados são atualizados a cada 15 minutos
+                        </p>
+                    </div>
+                    <div class="flex gap-4 mt-4 md:mt-0">
+                        <button class="btn btn-outline kpmg-border-blue kpmg-text-blue hover:bg-kpmg-blue hover:text-white">
+                            <i class="fas fa-question-circle mr-2"></i>
+                            Ajuda
+                        </button>
+                        <button class="btn bg-kpmg-blue text-white hover:bg-kpmg-light-blue">
+                            <i class="fas fa-share mr-2"></i>
+                            Compartilhar Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-10 bg-kpmg-dark text-white mt-10">
+        <aside>
+            <div class="flex items-center justify-center mb-4">
+                <i class="fas fa-chart-line text-2xl mr-2"></i>
+                <p class="text-xl font-bold">KPMG Finance Dashboard</p>
+            </div>
+            <p class="opacity-80">Solução de monitoramento de operações financeiras</p>
+            <p class="opacity-60 text-sm mt-2">© 2025 KPMG. Todos os direitos reservados.</p>
+        </aside>
+    </footer>
+
+    <!-- JavaScript for Charts -->
+    <script>
+        // Flow Chart
+        const flowCtx = document.getElementById('flowChart').getContext('2d');
+        const flowChart = new Chart(flowCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Gerados', 'Assinados', 'Enviados', 'Sucesso'],
+                datasets: [{
+                    label: 'Quantidade',
+                    data: [10000, 8000, 3000, 2500],
+                    backgroundColor: [
+                        '#00338D', // KPMG Blue
+                        '#00B2A9', // KPMG Cyan
+                        '#0066CC', // KPMG Light Blue
+                        '#10B981'  // Green for success
+                    ],
+                    borderColor: [
+                        '#00338D',
+                        '#00B2A9',
+                        '#0066CC',
+                        '#10B981'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y.toLocaleString('pt-BR')}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // eFinanceira Chart
+        const efinanceiraCtx = document.getElementById('efinanceiraChart').getContext('2d');
+        const efinanceiraChart = new Chart(efinanceiraCtx, {
+            type: 'line',
+            data: {
+                labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4', 'Atual'],
+                datasets: [
+                    {
+                        label: 'Eventos Gerados',
+                        data: [8500, 9200, 9700, 10200, 10000],
+                        borderColor: '#00338D',
+                        backgroundColor: 'rgba(0, 51, 141, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Eventos Assinados',
+                        data: [6500, 7200, 7800, 8200, 8000],
+                        borderColor: '#00B2A9',
+                        backgroundColor: 'rgba(0, 178, 169, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y.toLocaleString('pt-BR')}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('pt-BR');
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Distribution Chart
+        const distributionCtx = document.getElementById('distributionChart').getContext('2d');
+        const distributionChart = new Chart(distributionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Sucesso', 'Erro', 'Pendentes'],
+                datasets: [{
+                    data: [2500, 500, 5000],
+                    backgroundColor: [
+                        '#10B981', // Green
+                        '#EF4444', // Red
+                        '#F59E0B'  // Amber
+                    ],
+                    borderColor: [
+                        '#10B981',
+                        '#EF4444',
+                        '#F59E0B'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = Math.round((context.raw / total) * 100);
+                                return `${context.label}: ${context.raw.toLocaleString('pt-BR')} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Interactive functionality for buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                const btnText = this.textContent.trim();
+                if (btnText.includes('Exportar') || btnText.includes('Atualizar') ||
+                    btnText.includes('Ajuda') || btnText.includes('Compartilhar')) {
+                    // Show a toast notification
+                    const toast = document.createElement('div');
+                    toast.className = 'toast toast-top toast-end';
+                    toast.innerHTML = `
+                        <div class="alert alert-info">
+                            <span>Ação "${btnText}" acionada. Em uma aplicação real, isso executaria a funcionalidade correspondente.</span>
+                        </div>
+                    `;
+                    document.body.appendChild(toast);
+
+                    // Remove toast after 3 seconds
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 3000);
+                }
+            });
+        });
+
+        // Period filter functionality
+        document.querySelector('select').addEventListener('change', function() {
+            const period = this.options[this.selectedIndex].text;
+            const toast = document.createElement('div');
+            toast.className = 'toast toast-top toast-end';
+            toast.innerHTML = `
+                <div class="alert alert-success">
+                    <span>Período alterado para: ${period}. Os dados do dashboard seriam atualizados.</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

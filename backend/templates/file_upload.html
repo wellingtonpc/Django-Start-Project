@@ -1,0 +1,30 @@
+{% extends "_base.html" %}
+
+{% block content %}
+
+
+<div class="flex items-start justify-center min-h-screen">
+    <div class="max-w-xl mx-auto">
+
+        <h1 class="text-3xl font-bold mb-4 flex items-center justify-center">File Upload</h1>
+        <label
+            class="flex justify-center w-full h-32 px-5 transition bg-base-200 border-2 border-primary border-dashed rounded-md appearance-none cursor-pointer hover:border-secondary focus:outline-none">
+            <span class="flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-base-content" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                <span class="font-medium text-base-content">
+                    Drop files to Attach, or
+                    <span class="text-info underline">browse</span>
+                </span>
+            </span>
+            <input type="file" name="file_upload" class="hidden">
+        </label>
+    </div>
+
+</div>
+
+
+{% endblock content %}

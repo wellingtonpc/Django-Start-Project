@@ -6,7 +6,7 @@
   },
 
   "scripts": {
-    "build:css": "npx @tailwindcss/cli -i app.css -o output.css",
-    "watch:css": "npx @tailwindcss/cli -i app.css -o output.css --watch"
+    "build:css": "npx @tailwindcss/cli -i app.css -o ../backend/static/src/output.css",
+    "watch:css": "npx @tailwindcss/cli -i app.css -o ../backend/static/src/output.css --watch"
   }
 }
