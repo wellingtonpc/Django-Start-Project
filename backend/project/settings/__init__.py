@@ -16,8 +16,10 @@ LOCAL_SETTINGS_PATH = os.getenv(
 
 include(
     'base.py',
+    'allauth.py',
     'logging.py',
     'custom.py',
+    'my_apps.py',
     optional(LOCAL_SETTINGS_PATH),
     'envvars.py',
     'docker.py',

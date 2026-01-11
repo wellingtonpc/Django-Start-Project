@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @source "../backend/templates/**/*.{html,js}";
-@source "../backend/**/templates/**/*.{html,js}",
-@source "../backend/**/forms.py",  // Include forms.py to scan for class names
+@source "../backend/**/templates/**/*.{html,js}";
+@source "../backend/**/forms.py";
 @plugin "daisyui";
 @plugin "daisyui/theme" {
   name: "light";
